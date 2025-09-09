@@ -19,9 +19,12 @@ List cars with owners:
 curl http://localhost:18080/api/cars
 ```
 
-Check insurance validity (returns `{"carId":1,"date":"2025-01-01","valid":true|false}`):
+Check insurance validity (returns `{"carId":1|2,"date":"2025-10-01","valid":true|false}`):
 ```bash
-curl "http://localhost:18080/api/cars/1/insurance-valid?date=2025-06-01"
+curl "http://localhost:18080/api/cars/1/insurance-valid?date=2025-10-01"
+```
+```bash
+curl "http://localhost:18080/api/cars/2/insurance-valid?date=2025-10-01"
 ```
 
 Run tests:
@@ -77,6 +80,11 @@ Ensure all insurance policies have an **end date** and that this is enforced at 
 Acceptance criteria:
 - Creating/updating a policy without `endDate` fails with 4xx and a helpful message.
 - Existing open-ended sample data is fixed (use a default validity period of 1 year for existing policies).
+
+Postman tests:
+- [Bad Request response](src\main\resources\BadReq.png)
+- [OK response](src\main\resources\OkReq.png)
+
 
 ### B) Add new code: Create two new functionalities
 

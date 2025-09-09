@@ -1,8 +1,13 @@
 package com.example.carins.web;
 
 import com.example.carins.model.Car;
+import com.example.carins.model.InsurancePolicy;
+import com.example.carins.repo.CarRepository;
+import com.example.carins.repo.InsurancePolicyRepository;
 import com.example.carins.service.CarService;
 import com.example.carins.web.dto.CarDto;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +20,7 @@ public class CarController {
 
     private final CarService service;
 
-    public CarController(CarService service) {
+    public CarController(CarService service, CarRepository carRepository, InsurancePolicyRepository policyRepository) {
         this.service = service;
     }
 
