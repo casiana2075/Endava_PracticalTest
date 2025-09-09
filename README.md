@@ -10,18 +10,18 @@
 ## 2) How to Run
 
 Default ports and tools:
-- API base URL: `http://localhost:8080`
+- API base URL: `http://localhost:18080`
 
 ### Sample requests
 
 List cars with owners:
 ```bash
-curl http://localhost:8080/api/cars
+curl http://localhost:18080/api/cars
 ```
 
 Check insurance validity (returns `{"carId":1,"date":"2025-01-01","valid":true|false}`):
 ```bash
-curl "http://localhost:8080/api/cars/1/insurance-valid?date=2025-06-01"
+curl "http://localhost:18080/api/cars/1/insurance-valid?date=2025-06-01"
 ```
 
 Run tests:
