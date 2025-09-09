@@ -1,0 +1,10 @@
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\CarInsuranceApplication.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\model\Car.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\model\InsurancePolicy.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\model\Owner.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\repo\CarRepository.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\repo\InsurancePolicyRepository.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\repo\OwnerRepository.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\service\CarService.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\web\CarController.java
+E:\GitHub\Endava_PracticalTest\src\main\java\com\example\carins\web\dto\CarDto.java
