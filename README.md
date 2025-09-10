@@ -81,7 +81,7 @@ Acceptance criteria:
 - Creating/updating a policy without `endDate` fails with 4xx and a helpful message.
 - Existing open-ended sample data is fixed (use a default validity period of 1 year for existing policies).
 
-Postman tests:
+My Solution - Postman tests:
 - [Bad Request response](src\main\resources\BadReq.png)
 - [OK response](src\main\resources\OkReq.png)
 
@@ -100,6 +100,13 @@ Postman tests:
 Acceptance criteria:
 - Clear, documented JSON shapes.
 - Returns 404 when `carId` does not exist.
+
+My Solution - Postman tests:
+- [Returns created claim with 201](src\main\resources\ClaimsOkReq.png)
+- [Bad request claim](src\main\resources\ClaimsBadReqReq.png)
+- [CarId does not exist at claims request](src\main\resources\ClaimsNotFoundReq.png)
+- [History of a car](src\main\resources\HistoryOkReq.png)
+- [CarId does not exist at history request](src\main\resources\HistoryNotFoundReq.png)
 
 ### C) Add validation: Protect the insurance validity check against invalid values
 
