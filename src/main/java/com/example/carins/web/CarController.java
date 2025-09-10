@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -52,6 +54,13 @@ public class CarController {
         if (carOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        LocalDate minDate = LocalDate.of(1900, 1, 1);
+        LocalDate maxDate = LocalDate.of(2100, 12, 31);
+        if (date.isBefore(minDate) || date.isAfter(maxDate)) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("date", "must be between " + minDate + " and " + maxDate);
+            return ResponseEntity.badRequest().body(errors);
+        }
         boolean valid = service.isInsuranceValid(carId, date);
         return ResponseEntity.ok(new InsuranceValidityResponse(carId, date.toString(), valid));
     }
@@ -61,11 +70,11 @@ public class CarController {
             @PathVariable Long carId,
             @Valid @RequestBody InsuranceClaimDto claimDto) {
         if (!carId.equals(claimDto.carId())) {
-            return ResponseEntity.badRequest().body(null); // 400: Mismatched carId
+            return ResponseEntity.badRequest().body(null); // 400: mismatched carId
         }
         Optional<Car> carOpt = carRepository.findById(carId);
         if (carOpt.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404: Car not found
+            return ResponseEntity.notFound().build(); // 404: car not found
         }
         Car car = carOpt.get();
         InsuranceClaim claim = new InsuranceClaim(car, claimDto.claimDate(), claimDto.description(), claimDto.amount());
@@ -78,7 +87,7 @@ public class CarController {
     public ResponseEntity<List<CarEventDto>> getCarHistory(@PathVariable Long carId) {
         Optional<Car> carOpt = carRepository.findById(carId);
         if (carOpt.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404: Car not found
+            return ResponseEntity.notFound().build(); // 404: car not found
         }
         List<CarEventDto> events = new ArrayList<>();
         // Fetch policies

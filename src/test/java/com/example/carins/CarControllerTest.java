@@ -164,4 +164,51 @@ public class CarControllerTest {
         mockMvc.perform(get("/api/cars/999/history"))
                 .andExpect(status().isNotFound());
     }
+
+    //task 3 tests
+    @Test
+    void isInsuranceValid_withValidData_succeeds() throws Exception {
+        Car car = new Car("VIN12345", "Dacia", "Logan", 2018, new Owner("Ana", "ana@example.com"));
+        Field carIdField = Car.class.getDeclaredField("id");
+        carIdField.setAccessible(true);
+        carIdField.set(car, 1L);
+
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
+        when(policyRepository.existsActiveOnDate(1L, LocalDate.parse("2025-09-10"))).thenReturn(true);
+
+        mockMvc.perform(get("/api/cars/1/insurance-valid?date=2025-09-10"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.carId").value(1))
+                .andExpect(jsonPath("$.date").value("2025-09-10"))
+                .andExpect(jsonPath("$.valid").value(true));
+    }
+
+    @Test
+    void isInsuranceValid_withInvalidCarId_returnsNotFound() throws Exception {
+        when(carRepository.findById(999L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/cars/999/insurance-valid?date=2025-09-10"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void isInsuranceValid_withInvalidDateFormat_returnsBadRequest() throws Exception {
+        mockMvc.perform(get("/api/cars/1/insurance-valid?date=09-10-2025"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.date").value("Invalid date format. Must be YYYY-MM-DD."));
+    }
+
+    @Test
+    void isInsuranceValid_withOutOfRangeDate_returnsBadRequest() throws Exception {
+        Car car = new Car("VIN12345", "Dacia", "Logan", 2018, new Owner("Ana", "ana@example.com"));
+        Field carIdField = Car.class.getDeclaredField("id");
+        carIdField.setAccessible(true);
+        carIdField.set(car, 1L);
+
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
+
+        mockMvc.perform(get("/api/cars/1/insurance-valid?date=2125-09-10"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.date").value("must be between 1900-01-01 and 2100-12-31"));
+    }
 }

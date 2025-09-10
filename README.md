@@ -113,9 +113,13 @@ My Solution - Postman tests:
 Harden `GET /api/cars/{carId}/insurance-valid`:
 
 - Validate `carId` exists; return **404** if not.
+  - [See postman results here](src/main/resources/Insurance-ValidNotFoundReq.png)
 - Validate `date` format (ISO `YYYY-MM-DD`); return **400** with a clear error if invalid.
+  - [See postman results here](src/main/resources/Insurance-Valid_InvalidDateRequest.png)
 - Reject **impossible** dates (e.g., outside supported ranges) with **400**.
+  - [See postman results here](src/main/resources/Insurance-Valid_OutOfRangeRequest.png)
 - Add tests for these cases.
+  - [See tests](src/main/resources/passedTests.png)
 
 ### D) Add a cron that logs within 1 hour after a policy expires
 
