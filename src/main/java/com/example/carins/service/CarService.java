@@ -3,6 +3,7 @@ package com.example.carins.service;
 import com.example.carins.model.Car;
 import com.example.carins.repo.CarRepository;
 import com.example.carins.repo.InsurancePolicyRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,7 +26,8 @@ public class CarService {
 
     public boolean isInsuranceValid(Long carId, LocalDate date) {
         if (carId == null || date == null) return false;
-        // TODO: optionally throw NotFound if car does not exist
+        Car car = carRepository.findById(carId)
+                .orElseThrow(() -> new EntityNotFoundException("Car with ID " + carId + " not found"));
         return policyRepository.existsActiveOnDate(carId, date);
     }
 }

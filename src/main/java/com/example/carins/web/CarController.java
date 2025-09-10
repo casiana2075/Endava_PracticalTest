@@ -50,10 +50,6 @@ public class CarController {
     public ResponseEntity<?> isInsuranceValid(
             @PathVariable Long carId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        Optional<Car> carOpt = carRepository.findById(carId);
-        if (carOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         LocalDate minDate = LocalDate.of(1900, 1, 1);
         LocalDate maxDate = LocalDate.of(2100, 12, 31);
         if (date.isBefore(minDate) || date.isAfter(maxDate)) {

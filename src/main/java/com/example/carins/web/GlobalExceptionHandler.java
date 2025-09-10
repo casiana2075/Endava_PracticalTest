@@ -1,5 +1,6 @@
 package com.example.carins.web;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    //thrown when annotations are violated
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -39,5 +41,11 @@ public class GlobalExceptionHandler {
             errors.put(ex.getName(), "Invalid parameter: " + ex.getMessage());
         }
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    // when an entity is not found
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
