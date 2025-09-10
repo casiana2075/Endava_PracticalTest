@@ -44,6 +44,7 @@ public class CarControllerTest {
     @MockitoBean
     private InsuranceClaimRepository claimRepository;
 
+    //task 2 tests
     @Test
     void registerClaim_withValidData_succeeds() throws Exception {
         // Setup Car with a mock ID using reflection

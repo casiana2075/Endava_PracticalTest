@@ -37,6 +37,7 @@ public class InsurancePolicyControllerTest {
     @MockitoBean
     private CarRepository carRepository;
 
+    //task 1 tests
     @Test
     void createPolicy_withoutEndDate_returnsBadRequest() throws Exception {
         when(carRepository.findById(1L)).thenReturn(Optional.of(new Car()));
