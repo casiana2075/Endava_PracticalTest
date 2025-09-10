@@ -22,7 +22,7 @@ public class PolicyExpiryLogger {
         this.policyRepository = policyRepository;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?") // Run every day at the start of the day
+    @Scheduled(cron = "0 0 * * * ?") // Run every hour at the start of the hour
     @Transactional
     public void logExpiredPolicies() {
         try {
