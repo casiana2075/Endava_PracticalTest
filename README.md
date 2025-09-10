@@ -39,11 +39,13 @@ The API manages **car insurance** information. Core concepts:
 - **Owner** — a person who owns cars.
 - **Car** — a vehicle associated with one Owner at a time (current design uses a simple `owner_id` on the `CAR` table).
 - **InsurancePolicy** — a policy attached to a specific car and valid within a date interval `[startDate, endDate]` (inclusive). At most one policy may be **active** on a given date for a given car (not enforced yet).
+- **InsuranceClaim** — a record of a claim made against a car, including the date, description, and amount of the claim.
 
 Implemented features:
 - List all cars with their owners.
 - Check if a policy is active for a car on a given date.
-
+- **Register an insurance claim for a car** (new: associates a claim with a car, including date, description, and amount).
+- **Retrieve the history of a car** (new: lists all policies and claims for a car in chronological order, regardless of owner).
 
 ## 4) Database Tables (Current & Proposed)
 
@@ -65,7 +67,14 @@ Implemented features:
 - `CAR_ID` (BIGINT, FK → CAR.ID, not null)
 - `PROVIDER` (VARCHAR, null ok)
 - `START_DATE` (DATE, not null)
-- `END_DATE` (DATE)
+- `END_DATE` (DATE, not null)
+
+**INSURANCECLAIM**
+- `ID` (BIGINT, PK, auto)
+- `CAR_ID` (BIGINT, FK → CAR.ID, not null)
+- `CLAIM_DATE` (DATE, not null)
+- `DESCRIPTION` (VARCHAR, not null)
+- `AMOUNT` (BIGINT, not null)
 
 ## 5) Candidate Tasks
 
