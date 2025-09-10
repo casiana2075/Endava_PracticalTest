@@ -126,7 +126,8 @@ Harden `GET /api/cars/{carId}/insurance-valid`:
 - Enable scheduling and implement a scheduled task that runs periodically.
 - The task should log a message **at most 1 hour after** a policy’s `endDate` passes (e.g., “Policy {id} for car {carId} expired on {endDate}”).
 - Keep it simple: assume `endDate` is a **date** (no time); consider “expired at midnight”.
-- Make sure repeated runs do **not** spam logs for the same policy.
+- Make sure repeated runs do **not** spam logs for the same policy. 
+  - [My solution(for the sake of testing I changed to every minute)](src/main/resources/cronLogOutput.png)
 
 Acceptance criteria:
 - When a policy expires, a log line appears once within an hour of expiry.
